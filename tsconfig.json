@@ -11,6 +11,12 @@
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
+    "paths": {
+      "ngx-easy-webcam": [
+        "dist/ngx-easy-webcam/ngx-easy-webcam",
+        "dist/ngx-easy-webcam"
+      ]
+    },
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,

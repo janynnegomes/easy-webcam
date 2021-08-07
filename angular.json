@@ -3,5 +3,166 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "ngx-easy-webcam": {
+      "projectType": "library",
+      "root": "projects/ngx-easy-webcam",
+      "sourceRoot": "projects/ngx-easy-webcam/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ngx-easy-webcam/tsconfig.lib.json",
+            "project": "projects/ngx-easy-webcam/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-easy-webcam/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-easy-webcam/src/test.ts",
+            "tsConfig": "projects/ngx-easy-webcam/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-easy-webcam/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-easy-webcam/tsconfig.lib.json",
+              "projects/ngx-easy-webcam/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "app-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/app-demo",
+      "sourceRoot": "projects/app-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/app-demo",
+            "index": "projects/app-demo/src/index.html",
+            "main": "projects/app-demo/src/main.ts",
+            "polyfills": "projects/app-demo/src/polyfills.ts",
+            "tsConfig": "projects/app-demo/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/app-demo/src/favicon.ico",
+              "projects/app-demo/src/assets"
+            ],
+            "styles": [
+              "projects/app-demo/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/app-demo/src/environments/environment.ts",
+                  "with": "projects/app-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "app-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "app-demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "app-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/app-demo/src/test.ts",
+            "polyfills": "projects/app-demo/src/polyfills.ts",
+            "tsConfig": "projects/app-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/app-demo/karma.conf.js",
+            "assets": [
+              "projects/app-demo/src/favicon.ico",
+              "projects/app-demo/src/assets"
+            ],
+            "styles": [
+              "projects/app-demo/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/app-demo/tsconfig.app.json",
+              "projects/app-demo/tsconfig.spec.json",
+              "projects/app-demo/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/app-demo/e2e/protractor.conf.js",
+            "devServerTarget": "app-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "app-demo:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ngx-easy-webcam"
 }
